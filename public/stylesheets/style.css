@@ -1,4 +1,25 @@
 body {
+    background-color: rgb(43, 31, 43);
+    color: rgb(230, 230, 218);
+    opacity: 0.8;
+}
+
+.banner {
     background-color: rgb(36, 2, 36);
-    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner * {
+    margin: 20px;
+}
+
+.banner h3:hover {
+    cursor: pointer;
 }

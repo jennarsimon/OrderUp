@@ -29,5 +29,11 @@ app.get('/',function(req,res){
    res.sendFile(__dirname+'/views/signup.html');
 });
 
+// direct to login page
+app.get('/about',function(req,res){
+   res.sendFile(__dirname+'/views/about.html');
+});
+
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
