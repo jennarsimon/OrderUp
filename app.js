@@ -28,3 +28,6 @@ app.use('/users' , usersRoute);
 app.get('/',function(req,res){
    res.sendFile(__dirname+'/views/signup.html');
 });
+
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
