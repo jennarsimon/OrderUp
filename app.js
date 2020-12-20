@@ -24,16 +24,26 @@ app.use(bodyParser.json());
 const usersRoute = require('./routes/user.js');
 app.use('/users' , usersRoute);
 
-// direct to login page
+// direct to signup page
 app.get('/',function(req,res){
    res.sendFile(__dirname+'/views/signup.html');
 });
 
-// direct to login page
+// direct to about page
 app.get('/about',function(req,res){
    res.sendFile(__dirname+'/views/about.html');
 });
 
+// direct to login page
+app.get('/login',function(req,res){
+   res.sendFile(__dirname+'/views/login.html');
+});
+
+app.get('/images/lattice', function(req, res) {
+   res.sendFile(__dirname+'/images/lattice.png');
+})
+
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'images')));

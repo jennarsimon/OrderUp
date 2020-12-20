@@ -4,11 +4,33 @@
         <title>Second Course: Signup</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
         <script src="/javascripts/main.js"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="banner">
             <h1>Second Course</h1>
             <h3 id="about">About</h3>
         </div>
+        <div class="welcome">
+            <h3>Welcome to</h3>
+            <h1>Second Course</h1>
+        </div>
+        <div class="createAccount">
+            <div class="header">
+                <h4>Create Account</h4>
+            </div>
+            <div class="form">
+                <form action=”/users” method=”post”>
+                    <input type='text' name='firstName' id='firstName' placeholder='First Name' required />
+                    <input type='text' name='lastName' id='lastName' placeholder='Last Name' required />
+                    <input type='email' name='email' id='email' placeholder='Email' required />
+                    <input type='text' name='userName' id='userName' placeholder='User Name' required/>
+                    <input type='password' name='password' id='password' placeholder='Password' required/>
+                    <input type='submit' id='submitDetails' name='submitDetails' value='Submit'/>
+                </form>
+            </div>
+        </div>
+        <h5>Already have an account? <u>Login</u></h5>
     </body>
 </html>
