@@ -80,16 +80,19 @@ body {
 form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr) 40px;
+    grid-template-rows: repeat(4, 1fr) 50px;
     align-content: stretch;
     height: 260px;
+    background-color: #FFFFFF;
 }
 
 form * {
     font-size: 18px;
     padding-left: 10px;
     color: rgb(36, 2, 36);
-    border: 1px solid rgb(230, 230, 218);
+    border: 1px solid #757575;
+    border-radius: 5px;
+    margin: 4px;
 }
 
 form #firstName {
@@ -126,6 +129,14 @@ form #submitDetails {
     text-transform: uppercase;
     letter-spacing: 6px;
     color: rgb(230, 230, 218);
+    width: 150px;
+    margin: 5px auto;
+    border-radius: 5px;
+}
+
+form #submitDetails:hover {
+    cursor: pointer;
+    background-color: rgb(73, 46, 73);
 }
 
 h5 {
