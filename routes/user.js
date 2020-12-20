@@ -4,6 +4,7 @@ const User = require('../model/User.js');
 const bcrypt = require('bcrypt');
 
 router.post('/', (request, response) => {
+
     const user = new User({
        firstName : request.body.firstName,
        lastName : request.body.lastName,
@@ -18,11 +19,24 @@ router.post('/', (request, response) => {
         user.password = hash;
         user.save().then(data => {
             console.log('Successfully created a new User');
-        })
-    }).catch(error => {
-        response.status(500).send('error creating user');
-    });
+        }).catch(error => {
+            
+            console.log('error code', error.code);
+            if (error.code == 11000) {
+                if(error.keyPattern.email) {
+                    response.status(400).send("Email address is taken");
+                }
+                else if(error.keyPattern.userName) {
+                    response.status(400).send("Username is taken");
+                }
+            }
+            else {
+                response.status(500).send('error creating user');
+            }
+            
+        });
+        
+    })
 
-});
-
+})
 module.exports = router;
