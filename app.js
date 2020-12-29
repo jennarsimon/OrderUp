@@ -1,4 +1,5 @@
 // setup server
+var emitter;
 var express = require('express');
 var app = express();
 app.listen(3000, () => {
@@ -21,7 +22,7 @@ app.use( bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // set up user routes
-const usersRoute = require('./routes/user.js');
+const usersRoute = require('./public/javascripts/routes/user');
 app.use('/users' , usersRoute);
 
 // direct to signup page
@@ -39,6 +40,11 @@ app.get('/login',function(req,res){
    res.sendFile(__dirname+'/views/login.html');
 });
 
+// direct to home page
+app.get('/home/*',function(req,res){
+   res.sendFile(__dirname+'/views/home.html');
+});
+
 app.get('/images/lattice', function(req, res) {
    res.sendFile(__dirname+'/images/lattice.png');
 })
@@ -47,3 +53,4 @@ var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__dirname, 'routes')));

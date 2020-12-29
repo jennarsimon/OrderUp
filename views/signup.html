@@ -3,7 +3,8 @@
     <head>
         <title>Second Course: Signup</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-        <script src="/javascripts/main.js"></script>
+        <script type="text/javascript" src="/javascripts/main.js"></script>
+        <script type="text/javascript" src="/javascripts/routes/user.js"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
     </head>
@@ -24,12 +25,29 @@
                 <form action='/users' method='post'>
                     <input type='text' name='firstName' id='firstName' placeholder='First Name' required />
                     <input type='text' name='lastName' id='lastName' placeholder='Last Name' required />
-                    <input type='email' name='email' id='email' placeholder='Email' required />
                     <input type='text' name='userName' id='userName' placeholder='User Name' required/>
                     <input type='password' name='password' id='password' placeholder='Password' required/>
-                    <input type='submit' id='submitDetails' name='submitDetails' value='Sign In'/>
+                    <input type='submit' id='submitDetails' name='submitDetails' value='Sign Up'/>
                 </form>
+                <script>
+                    let form = document.querySelector('form');
+                    form.addEventListener('submit', event => {
+                        fetch('/users/' + document.getElementById('userName').value)
+                        .then(data => {
+                            console.log('data', data);
+                            if(data.ok){
+                                document.getElementsByClassName('userError')[0].style.visibility = 'visible';
+                                document.getElementById('userName').style.borderColor = 'rgb(136, 8, 8)';
+                                document.getElementById('userName').style.borderWidth = '2px';
+                                event.preventDefault();
+                            }
+                        }).catch(error => console.log('valid username'));
+                    })
+                </script>
             </div>
+        </div>
+        <div class="userError">
+            <h6>Username already in use</h6> 
         </div>
         <h5>Already have an account? <u>Login</u></h5>
     </body>
