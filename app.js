@@ -41,7 +41,7 @@ app.get('/login',function(req,res){
 });
 
 // direct to home page
-app.get('/home/*',function(req,res){
+app.get('/home/:username',function(req,res){
    res.sendFile(__dirname+'/views/home.html');
 });
 

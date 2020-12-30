@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
                 res.status(500).send('error creating user');
                 return;
             }
-            res.status(201).redirect('/users/' + req.body.userName);
+            res.status(201).redirect('/home/' + req.body.userName);
             console.log('Successfully created a new User');
         })
         
