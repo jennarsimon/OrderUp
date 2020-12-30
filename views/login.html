@@ -2,12 +2,80 @@
 <html>
     <head>
         <title>Second Course: Login</title>
-        <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/signup.css">
         <script src="/javascripts/main.js"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h1>Login</h1>
+        <div class="banner">
+            <h1>Second Course</h1>
+            <h3 id="about">About</h3>
+        </div>
+        <div class="welcome">
+            <h1>Second Course</h1>
+        </div>
+        <div class="login">
+            <div class="header">
+                <h4>Enter Info</h4>
+            </div>
+            <div class="form">
+                <form onsubmit="return false">
+                    <input type='text' name='userName' id='userName' placeholder='User Name' required/>
+                    <input type='password' name='password' id='password' placeholder='Password' required/>
+                    <input type='submit' id='submitDetails' name='submitDetails' value='Sign In'/>
+                </form>
+                <script>
+                    // const bcrypt = require('bcrypt');
+                    let form = document.querySelector('form');
+                    form.addEventListener('submit', event => {
+                        fetch('/users/' + document.getElementById('userName').value)
+                        .then(data => {
+                            console.log('data', data);
+                            if(!data.ok){
+                                console.log('username does not exist');
+                                document.getElementsByClassName('userError')[0].style.visibility = 'visible';
+                                document.getElementById('userName').style.borderColor = 'rgb(136, 8, 8)';
+                                document.getElementById('userName').style.borderWidth = '2px';
+                                event.preventDefault();
+                                return;
+                            }
+                            else {
+                                console.log('username exists');
+                            }
+                            return data;
+                        }).then(data => data.json()).then(response => {
+                            
+                            console.log('json', response);
+
+                            let user = {};
+                            user.userName = document.getElementById('userName').value;
+                            user.password = document.getElementById('password').value;
+
+                            fetch('/users', {method: "POST", 
+                                headers: {'Content-Type': 'application/json'}, 
+                                body: JSON.stringify(user)}).then(result => {
+                                    if(!result.ok) {
+                                        console.log('INCORRECT PASSWORD');
+                                        document.getElementsByClassName('passwordError')[0].style.visibility = 'visible';
+                                        document.getElementById('userName').style.borderColor = 'rgb(136, 8, 8)';
+                                        document.getElementById('userName').style.borderWidth = '2px';
+                                    }
+                                    else{
+                                        window.location.href = result.url;
+                                    }
+                                });
+
+                        }).catch(error => console.log('error logging in', error));
+                    })
+                </script>
+            </div>
+        </div>
+        <div class="userError">
+            <h6>Username does not exist</h6> 
+        </div>
+        <div class="passwordError">
+            <h6>Password is incorrect</h6> 
+        </div>
     </body>
 </html>
