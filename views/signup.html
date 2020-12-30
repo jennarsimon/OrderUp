@@ -41,7 +41,10 @@
                                 document.getElementById('userName').style.borderWidth = '2px';
                                 event.preventDefault();
                             }
-                        }).catch(error => console.log('valid username'));
+                            else {
+                                console.log('valid username');
+                            }
+                        }).catch(error => console.log('error checking username'));
                     })
                 </script>
             </div>

@@ -18,12 +18,16 @@ router.post('/', (req, res, next) => {
         return next(err);
         }
         user.password = hash;
-        user.save().then(data => {
+        user.save().then((result, err) => {
+            if(err) {
+                console.log('err', err);
+                console.log('result', result);
+                res.status(500).send('error creating user');
+                return;
+            }
+            res.status(201).redirect('/users/' + req.body.userName);
             console.log('Successfully created a new User');
-            res.redirect('/users/' + req.body.userName);
-        }).catch(error => {
-            console.log('username is taken');
-        });
+        })
         
     })
 
