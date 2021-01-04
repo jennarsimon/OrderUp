@@ -26,14 +26,13 @@
                     <input type='submit' id='submitDetails' name='submitDetails' value='Sign In'/>
                 </form>
                 <script>
-                    // const bcrypt = require('bcrypt');
                     let form = document.querySelector('form');
                     form.addEventListener('submit', event => {
                         fetch('/users/' + document.getElementById('userName').value)
                         .then(data => {
-                            console.log('data', data);
                             if(!data.ok){
                                 console.log('username does not exist');
+                                document.getElementsByClassName('passwordError')[0].style.visibility = 'hidden';
                                 document.getElementsByClassName('userError')[0].style.visibility = 'visible';
                                 document.getElementById('userName').style.borderColor = 'rgb(136, 8, 8)';
                                 document.getElementById('userName').style.borderWidth = '2px';
@@ -42,30 +41,29 @@
                             }
                             else {
                                 console.log('username exists');
+                                data.json().then(response => {
+                                    console.log('json', response);
+
+                                    let user = {};
+                                    user.userName = document.getElementById('userName').value;
+                                    user.password = document.getElementById('password').value;
+
+                                    fetch('/users', {method: "POST", 
+                                        headers: {'Content-Type': 'application/json'}, 
+                                        body: JSON.stringify(user)}).then(result => {
+                                            if(!result.ok) {
+                                                console.log('INCORRECT PASSWORD');
+                                                document.getElementsByClassName('userError')[0].style.visibility = 'hidden';
+                                                document.getElementsByClassName('passwordError')[0].style.visibility = 'visible';
+                                                document.getElementById('password').style.borderColor = 'rgb(136, 8, 8)';
+                                                document.getElementById('password').style.borderWidth = '2px';
+                                            }
+                                            else{
+                                                window.location.href = result.url;
+                                            }
+                                        });
+                                })
                             }
-                            return data;
-                        }).then(data => data.json()).then(response => {
-                            
-                            console.log('json', response);
-
-                            let user = {};
-                            user.userName = document.getElementById('userName').value;
-                            user.password = document.getElementById('password').value;
-
-                            fetch('/users', {method: "POST", 
-                                headers: {'Content-Type': 'application/json'}, 
-                                body: JSON.stringify(user)}).then(result => {
-                                    if(!result.ok) {
-                                        console.log('INCORRECT PASSWORD');
-                                        document.getElementsByClassName('passwordError')[0].style.visibility = 'visible';
-                                        document.getElementById('password').style.borderColor = 'rgb(136, 8, 8)';
-                                        document.getElementById('password').style.borderWidth = '2px';
-                                    }
-                                    else{
-                                        window.location.href = result.url;
-                                    }
-                                });
-
                         }).catch(error => console.log('error logging in', error));
                     })
                 </script>
