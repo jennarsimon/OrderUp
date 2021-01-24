@@ -22,7 +22,7 @@
                 <h4>Create Account</h4>
             </div>
             <div class="form">
-                <form action='/users' method='post'>
+                <form action='/users' method='post' onsubmit="return false">
                     <input type='text' name='firstName' id='firstName' placeholder='First Name' required />
                     <input type='text' name='lastName' id='lastName' placeholder='Last Name' required />
                     <input type='text' name='userName' id='userName' placeholder='User Name' required/>
@@ -36,13 +36,14 @@
                         .then(data => {
                             console.log('data', data);
                             if(data.ok){
+                                event.preventDefault();
                                 document.getElementsByClassName('userError')[0].style.visibility = 'visible';
                                 document.getElementById('userName').style.borderColor = 'rgb(136, 8, 8)';
                                 document.getElementById('userName').style.borderWidth = '2px';
-                                event.preventDefault();
                             }
                             else {
                                 console.log('valid username');
+                                form.submit();
                             }
                         }).catch(error => console.log('error checking username'));
                     })
